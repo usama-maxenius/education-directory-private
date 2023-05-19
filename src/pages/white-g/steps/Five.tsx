@@ -1,14 +1,11 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, useState, useRef } from 'react';
+import { useRouter } from 'next/router';
 import { AppContext } from '@/context/AppContext';
-import scholarship from '@/assets/images/1_school.png';
-import newSchool from '@/assets/images/2_new.png';
-import age from '@/assets/images/5_age.png';
-import graduate from '@/assets/images/7_graduate.png';
-import enroll from '@/assets/images/8_enroll.png';
+import Link from 'next/link';
 import Image from 'next/image';
 import ProgressBar from '@/components/ProgressBar';
-import { stepFour } from '@/appConstants';
 import { validatePhone } from '@/utils/fieldvalidation';
+import { postSearchRequest, prepareSearchBody } from '@/pages/api/searchApi';
 // import Input from '../../../components/Input';
 import { Box, Text, Stack, Flex, Button, Checkbox, RadioGroup, Input } from '@chakra-ui/react';
 
@@ -16,12 +13,37 @@ import styles from '../index.module.css';
 const { form_select, step_form, form_stack } = styles;
 
 const Five:FC = ():JSX.Element => {
-    const { whiteGStepsData, setWhiteGStepsData } = useContext(AppContext);
+    const router = useRouter();
+    const ref = useRef(null);
+    const { whiteGStepsData, setWhiteGStepsData, setSearchIdentifier } = useContext(AppContext);
     const { first_name, last_name, address, phone } = whiteGStepsData;
+    const [loading, setLoading] = useState(false);
     const nextStep = first_name && last_name && address && phone;
-
+    const clickHandler = async () => {
+        setLoading(true);
+        try {
+            const searchBody = await prepareSearchBody(whiteGStepsData);
+            const searchIdentifier = (await postSearchRequest(searchBody)) as ISearchResponse;
+            await setSearchIdentifier(searchIdentifier);
+            
+            setLoading(false);
+            whiteGStepsData.searchIdentifier = searchIdentifier.search_identifier;
+            localStorage.setItem('getStarted', JSON.stringify(whiteGStepsData));
+            //@ts-ignore
+            ref.current && ref.current.click();
+            setTimeout(()=> {
+                // router.push('/interested-programs');
+                router.push('/thank-you');
+            }, 1000);
+        } catch (error) {
+            console.error(error);
+            setLoading(false);
+            return error;
+        }
+    };
     return (
         <Stack>
+            <Link href='../interested-programs' rel='noopener noreferrer' target='_blank' ref={ref} style={{display: 'none'}} />
             <Box className='container'>
                 <Stack className={form_stack}>
                     <ProgressBar width={((whiteGStepsData.current)/5)*100} />
@@ -92,7 +114,7 @@ const Five:FC = ():JSX.Element => {
                             h='52px'
                             _hover={{ background: 'ED.primary' }} bg='ED.primary' color='ED.white'
                             // className={`${!nextStep && 'cursor-disabled'}`}
-                            onClick={() => console.log('click')}
+                            onClick={clickHandler}
                         >
                             Show School! <span>»</span>
                         </Button>

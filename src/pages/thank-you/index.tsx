@@ -46,7 +46,6 @@ const ThankYou = (): JSX.Element => {
     }, [fetchCount]);
 
     useEffect(()=> {
-        remaining !== remaining && router.push('/interested-programs');
         const universityNames = searchResults?.map(r=> !notIntrested.includes(r.schoolid)? r.brand_name: '');
         const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
         setPolicyString(thanksPolicy.replaceAll('universityNames', formatter.format(universityNames)));
@@ -54,6 +53,7 @@ const ThankYou = (): JSX.Element => {
         //     // setCurrentPage('/interested-programs');
         //     router.push('/interested-programs');
         // }, 1000);
+        remaining === 0 && router.push('/interested-programs');
         
     }, [remaining]);
 
@@ -76,8 +76,7 @@ const ThankYou = (): JSX.Element => {
                 <h1 className='h1 text-primary'>
                     {
                         (searchResults?.length < 0 || fetchCount < 2) ? 
-                        'Please wait while we are finding the best matches for you.' : hasResults ? `We have ${remaining} schools that are looking for you.`
-                        : remaining === 0 ? 'We are sorry right now we don\'t have more matches for you.' : `We are sorry we couldn\'t find best matches for you`
+                        'Please wait while we are finding the best matches for you.' : hasResults ? `We have ${remaining} schools that are looking for you.`: ''
                     }
                 </h1>
                 {

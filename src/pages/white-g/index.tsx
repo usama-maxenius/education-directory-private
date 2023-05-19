@@ -34,7 +34,7 @@ const WhiteG: FC = ():JSX.Element => {
                                 <Box className='' p='20px'>
                                     <Button 
                                         onClick={() => {
-                                            window.open('/white-g/school-search', '_blank');
+                                            window.open('/interested-programs', '_blank');
                                             setWhiteGStepsData({...whiteGStepsData, current_education_level: 'G.E.D', current: 2});
                                         }}
                                         className={form_btn} _hover={{ background: 'ED.primary' }} bg='ED.primary' color='ED.white'
@@ -43,7 +43,7 @@ const WhiteG: FC = ():JSX.Element => {
                                     </Button>
                                     <Button 
                                         onClick={() => {
-                                            window.open('/white-g/school-search', '_blank');
+                                            window.open('/interested-programs', '_blank');
                                             setWhiteGStepsData({...whiteGStepsData, current_education_level: 'High School Diploma', current: 2});
                                         }}
                                         className={form_btn} _hover={{ background: 'ED.primary' }} bg='ED.primary' color='ED.white'
@@ -52,7 +52,7 @@ const WhiteG: FC = ():JSX.Element => {
                                     </Button>
                                     <Button 
                                         onClick={() => {
-                                            window.open('/white-g/school-search', '_blank');
+                                            window.open('/interested-programs', '_blank');
                                             setWhiteGStepsData({...whiteGStepsData, current_education_level: 'Bachelor', current: 2});
                                         }}
                                         className={form_btn} _hover={{ background: 'ED.primary' }} bg='ED.primary' color='ED.white'
@@ -62,7 +62,7 @@ const WhiteG: FC = ():JSX.Element => {
                                     <Select
                                         className={form_select}
                                         onChange={(e) => {
-                                            window.open('/white-g/school-search', '_blank');
+                                            window.open('/interested-programs', '_blank');
                                             setWhiteGStepsData({...whiteGStepsData, current_education_level: e.target.value, current: 2});
                                         }}
                                         defaultValue={whiteGStepsData.current_education_level}
