@@ -1,0 +1,36 @@
+{
+  "name": "education-directory",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/icon": "^3.0.15",
+    "@chakra-ui/react": "^2.5.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "framer-motion": "^10.3.4",
+    "next": "latest",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-ga": "^3.3.1",
+    "react-scroll": "^1.8.9",
+    "sharp": "^0.31.3",
+    "video.js": "^8.0.4",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.3",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "@types/react-scroll": "^1.8.6",
+    "@types/xml2js": "^0.4.11",
+    "eslint": "8.31.0",
+    "eslint-config-next": "13.1.2",
+    "typescript": "4.9.4"
+  }
+}

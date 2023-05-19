@@ -1,0 +1,13 @@
+.sectionWrapper {
+    width: 792px;
+}
+@media (max-width: 1020px) {
+    .sectionWrapper {
+      width: 100%;
+    }
+}
+
+.terms_form {
+    box-shadow: 3px 3px 15px #00000000;
+    border: 1px solid #16161640 !important
+}
