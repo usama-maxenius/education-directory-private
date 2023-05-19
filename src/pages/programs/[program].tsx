@@ -298,7 +298,7 @@ const Program: NextPage<IProps> = ({ program }): JSX.Element => {
                     {program?.outcomes_text}
                   </p>
                   <div className='text-base pt-3'>
-                   
+                    Some example degrees include:
                     <ul className='pt-3'>
                       {program?.outcomes_list
                         .split(/;/)
@@ -345,7 +345,7 @@ const Program: NextPage<IProps> = ({ program }): JSX.Element => {
                     {program?.experience_text}
                   </p>
                   <div className='text-base pt-3'>
-                  
+                    Some example degrees include:
                     <ul className='pt-3'>
                       {program?.experience_list
                         .split(/;\r?\n/)
@@ -437,7 +437,7 @@ const Program: NextPage<IProps> = ({ program }): JSX.Element => {
 
             {/* Quote Banner Section */}
             <div className='quote_wrapper'>
-              <Banner src={program.quote_bg_image && program.quote_bg_image.asset ? program.quote_bg_image.asset : null}>
+              <Banner src={program.qoute_bg_image.asset} quote>
                 <div className='relative z-10 quote__child__wrapper'>
                   <div className='w-50'>
                     <h3 className='h3 text-light text-center'>
@@ -445,7 +445,7 @@ const Program: NextPage<IProps> = ({ program }): JSX.Element => {
                     </h3>
                     <div className='center pt-3'>
                       <p className='text-sm text-white'>
-                        {program.quote_footer}
+                        {program.qoute_footer}
                       </p>
                     </div>
                   </div>

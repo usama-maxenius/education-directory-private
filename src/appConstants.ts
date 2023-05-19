@@ -1773,3 +1773,26 @@ export const intrestedSubjectArea = [
     value: 'Trade and Vocational'
   }
 ];
+
+export const usMilitaryAssociated = [
+  {
+    title: 'Active Duty(AD)', 
+    value: 'Active Duty(AD)'
+  },
+  {
+    title: 'Selective Reserve(SR)', 
+    value: 'Selective Reserve(SR)'
+  },
+  {
+    title: 'Spouse of AD os SR', 
+    value: 'Spouse of AD os SR'
+  },
+  {
+    title: 'Veteren', 
+    value: 'Veteren'
+  },
+  {
+    title: 'Civilian', 
+    value: 'Civilian'
+  },
+];

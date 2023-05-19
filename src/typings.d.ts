@@ -71,7 +71,7 @@ interface IProgram {
   readonly goals_image: IImage;
   readonly outcomes_image: IImage;
   readonly experience_image: IImage;
-  readonly quote_bg_image: IImage;
+  readonly qoute_bg_image: IImage;
   readonly goals_heading: string;
   readonly goals_text: string;
   readonly goals_list: string;
@@ -89,7 +89,7 @@ interface IProgram {
   readonly careers_second_sub_heading_text: string;
   readonly careers_list: string;
   readonly quote_text: string;
-  readonly quote_footer: string;
+  readonly qoute_footer: string;
 }
 
 interface IPage {
@@ -120,9 +120,9 @@ interface IPage {
   careers_second_sub_heading_text: string;
   careers_list: string;
   quote_text: string;
-  quote_footer: string;
-  quote_bg_image: IImage;
-  quote_video: string | null;
+  qoute_footer: string;
+  qoute_bg_image: IImage;
+  qoute_video: string | null;
   logos: ILogo[];
 }
 
@@ -396,11 +396,11 @@ interface ProgramSlug {
 interface IHomePage {
   id: number;
   logos: ILogo[];
-  quote_bg_image: IImage;
+  qoute_bg_image: IImage;
   slug: string;
   quote_text: string;
-  quote_footer: string;
-  quote_video: null | string;
+  qoute_footer: string;
+  qoute_video: null | string;
   hero: number;
 }
 

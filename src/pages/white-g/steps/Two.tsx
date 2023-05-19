@@ -1,4 +1,4 @@
-import { FC, useContext, useState, useEffect } from 'react';
+import { FC, useContext, useState, useEffect, useRef } from 'react';
 import { AppContext } from '@/context/AppContext';
 import scholarship from '@/assets/images/1_school.png';
 import newSchool from '@/assets/images/2_new.png';
@@ -18,6 +18,11 @@ for(let i=15; i<=65; i++){
 };
 
 const Two:FC = ():JSX.Element => {
+    const inSchoolRef = useRef<null | HTMLDivElement>(null);
+    const schoolToAttendRef = useRef<null | HTMLDivElement>(null);
+    const hsyearRef = useRef<null | HTMLDivElement>(null);
+    const enrolledInSchooRef = useRef<null | HTMLDivElement>(null);
+    // const nextStepRef = useRef<null | HTMLDivElement>(null);
     const { whiteGStepsData, setWhiteGStepsData } = useContext(AppContext);
     const [inSchool, setInSchool] = useState('');
     const [schoolToAttend, setSchoolToAttend] = useState('');
@@ -26,13 +31,16 @@ const Two:FC = ():JSX.Element => {
     
     useEffect(()=>{
         if(inSchool == '1'){
+            inSchoolRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, in_school: 'Yes'});
         } else if(inSchool == '2'){
             setWhiteGStepsData({...whiteGStepsData, in_school: 'No', school_to_attend: ''});
+            window.scrollBy(100, 0);
         };
     }, [inSchool]);
     useEffect(()=>{
         if(schoolToAttend == '1') {
+            schoolToAttendRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, school_to_attend: 'Yes'});
         } else if(schoolToAttend == '2'){
             setWhiteGStepsData({...whiteGStepsData, school_to_attend: 'No'});
@@ -67,7 +75,7 @@ const Two:FC = ():JSX.Element => {
                     </Box>
                     {
                         whiteGStepsData.in_school == 'Yes' &&
-                        <Box textAlign='center' className={step_form}>
+                        <Box ref={inSchoolRef} textAlign='center' className={step_form}>
                             <RadioGroup defaultValue={whiteGStepsData.school_to_attend == 'Yes' ? '1' : '2'} onChange={setSchoolToAttend}>
                                 <Box>
                                     <Image
@@ -89,7 +97,7 @@ const Two:FC = ():JSX.Element => {
                             </RadioGroup>
                         </Box>
                     }
-                    <Box textAlign='center' className={step_form}>
+                    <Box ref={schoolToAttendRef} textAlign='center' className={step_form}>
                         <Box>
                             <Image
                                 src={child}
@@ -105,13 +113,16 @@ const Two:FC = ():JSX.Element => {
                         <Text py='20px' fontSize='1.25rem' fontWeight='600' fontFamily='IBM Plex Sans' color='ED.dark'>How old are you?</Text>
                         <Select
                             className={`${form_select}`}
-                            onChange={(e) => setWhiteGStepsData({...whiteGStepsData, age: e.target.value})}
+                            onChange={(e) => {
+                                hsyearRef.current?.scrollIntoView({behavior: 'smooth'});
+                                setWhiteGStepsData({...whiteGStepsData, age: e.target.value});
+                            }}
                             defaultValue={whiteGStepsData?.age}
                         >
                             {numbers?.map((item:any) => <option key={item.value} value={item.value}>{item.title}</option>)}
                         </Select>
                     </Box>
-                    <Box textAlign='center' className={step_form}>
+                    <Box ref={hsyearRef} textAlign='center' className={step_form}>
                         <Box>
                             <Image
                                 src={graduate}
@@ -127,13 +138,16 @@ const Two:FC = ():JSX.Element => {
                         <Text py='20px' fontSize='1.25rem' fontWeight='600' fontFamily='IBM Plex Sans' color='ED.dark'>What year did you graduate from high school or complete your GED?</Text>
                         <Select
                             className={form_select}
-                            onChange={(e) => setWhiteGStepsData({...whiteGStepsData, hsyear: e.target.value})}
+                            onChange={(e) => {
+                                enrolledInSchooRef.current?.scrollIntoView({behavior: 'smooth'});
+                                setWhiteGStepsData({...whiteGStepsData, hsyear: e.target.value});
+                            }}
                             defaultValue={whiteGStepsData.hsyear = `${generateYears()[0].value}`}
                         >
                             {generateYears().map(item => <option key={item.value} value={item.value}>{item.title}</option>)}
                         </Select>
                     </Box>
-                    <Box textAlign='center' className={step_form}>
+                    <Box ref={enrolledInSchooRef} textAlign='center' className={step_form}>
                         <Box>
                             <Image
                                 src={enroll}
@@ -149,7 +163,10 @@ const Two:FC = ():JSX.Element => {
                         <Text py='20px' fontSize='1.25rem' fontWeight='600' fontFamily='IBM Plex Sans' color='ED.dark'>When do you plan to enroll in school?</Text>
                         <Select
                             className={form_select}
-                            onChange={(e) => setWhiteGStepsData({...whiteGStepsData, enrolled_in_school: e.target.value})}
+                            onChange={(e) => {
+                                // nextStepRef.current?.scrollIntoView({behavior: 'smooth'});
+                                setWhiteGStepsData({...whiteGStepsData, enrolled_in_school: e.target.value});
+                            }}
                             defaultValue={whiteGStepsData?.enrolled_in_school}
                         >
                             {stepTwo.options.map(item => <option key={item.value} value={item.value}>{item.title}</option>)}

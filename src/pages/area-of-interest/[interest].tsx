@@ -321,7 +321,7 @@ const Interest: NextPage<IProps> = ({ interest }): JSX.Element => {
                     {interest?.requirements_text}
                   </p>
                   <div className='text-base pt-3'>
-                  
+                    Some example degrees include:
                     <ul className='pt-3'>
                       {interest?.requirements_list
                         .split(/;/)
@@ -374,7 +374,7 @@ const Interest: NextPage<IProps> = ({ interest }): JSX.Element => {
                     {interest?.experience_text}
                   </p>
                   <div className='text-base pt-3'>
-                   
+                    Some example degrees include:
                     <ul className='pt-3'>
                       {interest?.experience_list
                         .split(/;\r?\n/)
@@ -483,9 +483,9 @@ const Interest: NextPage<IProps> = ({ interest }): JSX.Element => {
             {/* Quote Banner Section */}
             <div className='quote_wrapper'>
               <NewBanner 
-                isVideo={interest.quote_video ? true : false}
+                isVideo={interest.qoute_video ? true : false}
                 isParallax={false}
-                src={interest.quote_bg_image && interest.quote_bg_image.asset ? interest.quote_bg_image.asset : null}
+                src={interest.qoute_video ?? interest.qoute_bg_image.asset}
                 height='750px'
               >
                 <Box pos='absolute' top='0' zIndex='10' className='quote__child__wrapper'>
@@ -495,7 +495,7 @@ const Interest: NextPage<IProps> = ({ interest }): JSX.Element => {
                     </h3>
                     <div className='center pt-3'>
                       <p className='text-sm text-white'>
-                        {interest.quote_footer}
+                        {interest.qoute_footer}
                       </p>
                     </div>
                   </div>

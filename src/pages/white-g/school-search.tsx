@@ -1,15 +1,17 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowChevronIcon } from '@/assets/icons';
 import LogoSvg from '@/assets/icons/logo.svg';
-import { Box, Text, Stack, HStack, Select, Button, UnorderedList, ListItem, Flex } from '@chakra-ui/react';
+import { Box, Text, Stack, Button, Flex } from '@chakra-ui/react';
 
 import styles from './index.module.css';
-import { whiten } from '@chakra-ui/theme-tools';
-const { outer_box, btn, white_card, icon_box, progress, progress_bar } = styles;
+const { outer_box, btn, white_card, icon_box, progress, progress_bar, show_more } = styles;
 
-const schoolSearch: FC = ():JSX.Element => {
+const SchoolSearch:FC = ():JSX.Element => {
+    const [showMore, setShowMore] = useState(true);
+    const text = 'Business, Healthcare, Psychology, Criminal Justice, Education and More';
+
     return(
         <>
             <Stack>
@@ -74,7 +76,7 @@ const schoolSearch: FC = ():JSX.Element => {
                             </Box>
                         </Flex>
                         <Flex borderTop='1px solid #D4E0F5'>
-                            <Stack p='20px' w='75%'>
+                            <Stack p='20px' w='58%'>
                                 <Flex direction='row' align='center' gap='10px'>
                                     <Box className={icon_box}><ArrowChevronIcon colour={'var(--white)'} rotate={true}/></Box>
                                     <Text color='ED.dark' fontFamily='IBM Plex Sans' fontSize='14px' fontWeight='400'>Get Matched with Schools That Meet Your Needs</Text>
@@ -95,9 +97,14 @@ const schoolSearch: FC = ():JSX.Element => {
                                     <Link href='#' className='text-underline'>Request More Information</Link>
                                 </Box>
                             </Stack>
-                            <Box p='20px' boxShadow='0px 6px 12px 0px rgb(0 0 0 / 16%)'>
+                            <Box p='20px' w='52%' boxShadow='0px 6px 12px 0px rgb(0 0 0 / 16%)'>
                                 <Text color='ED.navyBlue' fontFamily='IBM Plex Sans' fontSize='22px' fontWeight='600'>Programs In:</Text>
-                                <Text color='ED.philippineGray' fontFamily='IBM Plex Sans' fontSize='14px' fontWeight='400'>Business, Healthcare, Psychology, Criminal Justice, Education and More</Text>
+                                <Text color='ED.philippineGray' fontFamily='IBM Plex Sans' fontSize='14px' fontWeight='400'>
+                                    {showMore ? `${text.substring(0, 60)}` : text}
+                                    <span className={show_more} onClick={() => setShowMore(!showMore)}>
+                                        {showMore ? 'See more...' : 'See less'}
+                                    </span>
+                                </Text>
                             </Box>
                         </Flex>
                     </Box>
@@ -179,4 +186,4 @@ const schoolSearch: FC = ():JSX.Element => {
     );
 };
 
-export default schoolSearch;
+export default SchoolSearch;

@@ -34,7 +34,8 @@ const Seven = () => {
       //@ts-ignore
       ref.current && ref.current.click();
       setTimeout(()=> {
-        router.push('/interested-programs',  '_blank');
+        // router.push('/interested-programs');
+        router.push('/thank-you');
       }, 1000);
     } catch (error) {
       console.error(error);
@@ -45,7 +46,8 @@ const Seven = () => {
 
   return (
     <Stack className='step-wrapper'>
-      <Link href='../thank-you' rel='noopener noreferrer' ref={ref} style={{display: 'none'}} />
+      {/* <Link href='../thank-you' rel='noopener noreferrer' target='_blank' ref={ref} style={{display: 'none'}} /> */}
+      <Link href='../interested-programs' rel='noopener noreferrer' target='_blank' ref={ref} style={{display: 'none'}} />
       <Text fontSize={`${deviceType === 'Mobile' ? '3xl' : '4xl'}`} fontWeight='600' fontFamily='IBM Plex Sans' align='center' color='ED.primary' pb='0.75' pt='2px'>
         Get your results
       </Text>

@@ -16,7 +16,7 @@ const { thankYouPage, thankYouContent, TYCDetail, cardLoading, thankYouResults, 
 const ThankYou = (): JSX.Element => {
     const router = useRouter();
     const { query } = useRouter();
-    const { setCurrentPage, stepsData, setStepsData } = useContext(AppContext);
+    const { setCurrentPage, stepsData, setStepsData, setNavType } = useContext(AppContext);
     const [searchResults, setSearchResults] = useState([] as IResultSearch[]);
     const [acceptTerms, setAcceptTerms] = useState(false as boolean);
     const [policyToggle, setPolicyToggle] = useState(false as boolean);
@@ -26,12 +26,13 @@ const ThankYou = (): JSX.Element => {
     const [notIntrested, setNotIntersted] = useState([] as string[]);
     const [policyString, setPolicyString] = useState(thanksPolicy);
     const [searchTill, setSearchTill] = useState(3 as number);
-
+    
     const remaining = searchResults?.length - notIntrested.length;
     const hasResults = (searchResults?.length > 0 && remaining);
 
     useEffect(()=> console.log('query path is', query), [query]);
     useEffect(()=> {
+        setNavType('tertiary');
         setCurrentPage('thankyou');
         const data: StepData = JSON.parse(localStorage.getItem('getStarted')!);
         setStepsData(data);
@@ -45,9 +46,15 @@ const ThankYou = (): JSX.Element => {
     }, [fetchCount]);
 
     useEffect(()=> {
+        remaining !== remaining && router.push('/interested-programs');
         const universityNames = searchResults?.map(r=> !notIntrested.includes(r.schoolid)? r.brand_name: '');
         const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
         setPolicyString(thanksPolicy.replaceAll('universityNames', formatter.format(universityNames)));
+        // setTimeout(()=> {
+        //     // setCurrentPage('/interested-programs');
+        //     router.push('/interested-programs');
+        // }, 1000);
+        
     }, [remaining]);
 
     const getR = async ()=> {
@@ -66,13 +73,13 @@ const ThankYou = (): JSX.Element => {
     return (
         <div className={`container ${thankYouPage}`}>
             <div className={thankYouContent}>
-                <h1 className='h1 text-primary'>{
-                    (searchResults?.length < 0 || fetchCount < 2)
-                    ? 'Please wait while we are finding the best matches for you.'
-                    : hasResults ? `We have ${remaining} schools that are looking for you.`
-                    : remaining === 0 ? 'We are sorry right now we don\'t have more matches for you.'
-                    : 'We are sorry we couldn\'t find best matches for you'
-                }</h1>
+                <h1 className='h1 text-primary'>
+                    {
+                        (searchResults?.length < 0 || fetchCount < 2) ? 
+                        'Please wait while we are finding the best matches for you.' : hasResults ? `We have ${remaining} schools that are looking for you.`
+                        : remaining === 0 ? 'We are sorry right now we don\'t have more matches for you.' : `We are sorry we couldn\'t find best matches for you`
+                    }
+                </h1>
                 {
                     !!hasResults && <>
                         <p className={`${TYCDetail} text-base`}>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog.</p>

@@ -1635,12 +1635,15 @@ body:-webkit-scrollbar {
 
 /* Interested Programs */
 .ip-inner-container {
-  margin-top: 80px;
+  margin-top: -14px;
   margin-bottom: 5%;
   padding-top: 1%;
   height: auto;
 }
 
+.pb-3rem {
+  padding-bottom: 3rem;
+}
 .ip-heading {
   width: 100%;
   margin-top: 10px;

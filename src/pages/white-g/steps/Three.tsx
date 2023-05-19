@@ -1,13 +1,22 @@
-import { FC, useContext, useEffect, useState} from 'react';
+import { FC, useContext, useEffect, useState, useRef } from 'react';
 import { AppContext } from '@/context/AppContext';
 import Image from 'next/image';
 import ProgressBar from '@/components/ProgressBar';
+import { usMilitaryAssociated } from '@/appConstants';
 import { Box, Text, Stack, Button, Radio, RadioGroup, Input, Select } from '@chakra-ui/react';
 
 import styles from '../index.module.css';
 const { form_select, step_form, step_radio_btn, form_stack, radio_stack } = styles;
 
 const Three:FC = ():JSX.Element => {
+    const isTeachingRef = useRef<null | HTMLDivElement>(null);
+    const isNurseRef = useRef<null | HTMLDivElement>(null);
+    const isOnlineRef = useRef<null | HTMLDivElement>(null);
+    const isComputerRef = useRef<null | HTMLDivElement>(null);
+    const isUsCitizenRef = useRef<null | HTMLDivElement>(null);
+    const isMilitaryRef = useRef<null | HTMLDivElement>(null);
+    const isMilitaryAffiliationRef = useRef<null | HTMLDivElement>(null);
+    const isEmailRef = useRef<null | HTMLDivElement>(null);
     const { whiteGStepsData, setWhiteGStepsData } = useContext(AppContext);
     const [teachingCertificate, setTeachingCertificate] = useState('');
     const [currentlyANurse, setCurrentlyANurse] = useState('');
@@ -19,6 +28,9 @@ const Three:FC = ():JSX.Element => {
     const nextStep = teaching_certificate && nurse && us_citizen && military && email;
 
     useEffect(()=>{
+        isTeachingRef.current?.scrollIntoView({behavior: 'smooth'});
+    }, []);
+    useEffect(()=>{
         if(teachingCertificate == '1'){
             setWhiteGStepsData({...whiteGStepsData, teaching_certificate: 'Yes'});
         } else if(teachingCertificate == '2'){
@@ -27,40 +39,52 @@ const Three:FC = ():JSX.Element => {
     }, [teachingCertificate]);
     useEffect(()=>{
         if(currentlyANurse == '1'){
+            isNurseRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, nurse: 'LPN/LVN'});
         } else if(currentlyANurse == '2'){
+            isNurseRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, nurse: 'RN'});
         } else if(currentlyANurse == '3'){
+            isNurseRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, nurse: 'No'});
         };
     }, [currentlyANurse]);
     useEffect(()=>{
         if(yourClasses == '1'){
+            isOnlineRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, online_or_campus: 'Online'});
         } else if(yourClasses == '2'){
+            isOnlineRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, online_or_campus: 'Campus'});
         } else if(yourClasses == '3'){
+            isOnlineRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, online_or_campus: 'Either'});
         };
     }, [yourClasses]);
     useEffect(()=>{
         if(hasComputer == '1'){
+            isComputerRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, computer_access: 'Yes'});
         } else if(hasComputer == '2'){
+            isComputerRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, computer_access: 'No'});
         };
     }, [hasComputer]);
     useEffect(()=>{
         if(usCitizen == '1'){
+            isMilitaryRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, us_citizen: 'Yes'});
         } else if(usCitizen == '2'){
+            isMilitaryRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, us_citizen: 'No'});
         };
     }, [usCitizen]);
     useEffect(()=>{
         if(usMilitary == '1'){
+            isMilitaryAffiliationRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, military: 'Yes'});
         } else if(usMilitary == '2'){
+            isMilitaryAffiliationRef.current?.scrollIntoView({behavior: 'smooth'});
             setWhiteGStepsData({...whiteGStepsData, military: 'No'});
         };
     }, [usMilitary]);
@@ -68,7 +92,7 @@ const Three:FC = ():JSX.Element => {
     return (
         <Stack>
             <Box className='container'>
-                <Stack className={form_stack}>
+                <Stack ref={isTeachingRef} className={form_stack}>
                     <ProgressBar width={((whiteGStepsData.current - 1)/5)*100} />
                     <Box textAlign='center' className={step_form}>
                         <RadioGroup 
@@ -94,7 +118,7 @@ const Three:FC = ():JSX.Element => {
                             </Stack>
                         </RadioGroup>
                     </Box>
-                    <Box textAlign='center' className={step_form}>
+                    <Box ref={isNurseRef} textAlign='center' className={step_form}>
                         <RadioGroup 
                             defaultValue={whiteGStepsData?.nurse == 'LPN/LVN' ? '1' : whiteGStepsData?.nurse == 'RN' ? '2' : whiteGStepsData?.nurse == '' ? '' : '3'} 
                             onChange={setCurrentlyANurse}
@@ -119,7 +143,7 @@ const Three:FC = ():JSX.Element => {
                             </Stack>
                         </RadioGroup>
                     </Box>
-                    <Box textAlign='center' className={step_form}>
+                    <Box ref={isOnlineRef} textAlign='center' className={step_form}>
                         <RadioGroup 
                             defaultValue={whiteGStepsData?.online_or_campus == 'Online' ? '1' : whiteGStepsData?.online_or_campus == 'campus' ? '2' : whiteGStepsData?.online_or_campus == '' ? '' : '3'} 
                             onChange={setYourClasses}
@@ -146,7 +170,7 @@ const Three:FC = ():JSX.Element => {
                     </Box>
                     {
                         whiteGStepsData.online_or_campus !== 'Campus' &&
-                        <Box textAlign='center' className={step_form}>
+                        <Box ref={isComputerRef} textAlign='center' className={step_form}>
                             <RadioGroup 
                                 defaultValue={whiteGStepsData?.computer_access == 'Yes' ? '1' : '2'} 
                                 onChange={sethasComputer}
@@ -171,7 +195,7 @@ const Three:FC = ():JSX.Element => {
                             </RadioGroup>
                         </Box>
                     }
-                    <Box textAlign='center' className={step_form}>
+                    <Box ref={isUsCitizenRef} textAlign='center' className={step_form}>
                         <RadioGroup 
                             defaultValue={whiteGStepsData?.us_citizen == 'Yes' ? '1' : '2'} 
                             onChange={setUsCitizen}
@@ -195,7 +219,7 @@ const Three:FC = ():JSX.Element => {
                             </Stack>
                         </RadioGroup>
                     </Box>
-                    <Box textAlign='center' className={step_form}>
+                    <Box ref={isMilitaryRef} textAlign='center' className={step_form}>
                         <RadioGroup 
                             defaultValue={whiteGStepsData?.military == 'Yes' ? '1' : '2'} 
                             onChange={setUsMilitary}
@@ -219,7 +243,7 @@ const Three:FC = ():JSX.Element => {
                             </Stack>
                         </RadioGroup>
                     </Box>
-                    {/* <Box textAlign='center' className={step_form}>
+                    <Box ref={isMilitaryAffiliationRef} textAlign='center' className={step_form}>
                         <RadioGroup defaultValue='2'>
                             <Box>
                                 <Image
@@ -236,13 +260,16 @@ const Three:FC = ():JSX.Element => {
                             <Text py='20px' fontSize='1.25rem' fontWeight='600' fontFamily='IBM Plex Sans' color='ED.dark'>What is your U.S. Military affiliation?</Text>
                             <Select
                                 className={form_select}
-                                onChange={(e) => console.log(e.target.value)}
+                                onChange={(e) => {
+                                    isEmailRef.current?.scrollIntoView({behavior: 'smooth'});
+                                    setWhiteGStepsData({...whiteGStepsData, military_affiliation: e.target.value});
+                                }}
                             >
-                                {generateYears().map(item => <option key={item.value} value={item.value}>{item.title}</option>)}
+                                {usMilitaryAssociated?.map(item => <option key={item.value} value={item.value}>{item.title}</option>)}
                             </Select>
                         </RadioGroup>
-                    </Box> */}
-                    <Box textAlign='center' className={step_form}>
+                    </Box>
+                    <Box ref={isEmailRef} textAlign='center' className={step_form}>
                         <Box>
                             <Image
                                 src={'https://educationdirectory.org/white_g/images/questions/22_email.png?v=1'}
@@ -259,7 +286,9 @@ const Three:FC = ():JSX.Element => {
                         <Input 
                             type='text' placeholder='enter your email' h='3.1rem' 
                             defaultValue={whiteGStepsData?.email}
-                            onChange={(e) => setWhiteGStepsData({...whiteGStepsData, email: e.target.value})}
+                            onChange={(e) => {
+                                setWhiteGStepsData({...whiteGStepsData, email: e.target.value});
+                            }}
                         />
                         <Text fontSize='xs' fontFamily='IBM Plex Sans' color='ED.dark' textAlign='end'>We respect your privacy</Text>
                     </Box>
